@@ -17,17 +17,17 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    @restaurant.save
-
-    # no need for app/views/restaurants/create.html.erb
-    redirect_to restaurant_path(@restaurant)
+    if @restaurant.save
+      redirect_to restaurant_path(@restaurant)
+    else
+      redirect_to new_restaurant_path(@restaurant)
+    end
   end
 
   def update
     @restaurant = Restaurant.find(params[:id])
     @restaurant.update(restaurant_params)
 
-    # no need for app/views/restaurants/update.html.erb
     redirect_to restaurant_path(@restaurant)
   end
 
